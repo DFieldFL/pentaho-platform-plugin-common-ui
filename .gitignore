@@ -24,3 +24,4 @@ package-pom.xml
 .DS_Store
 *.iml
 .vscode
+target/
