@@ -82,9 +82,11 @@ import flexjson.JSONSerializer;
 @SuppressWarnings( { "all" } )
 public class MetadataServiceIT {
 
-  private static final String SOLUTION_PATH = "test-res/pentaho-solutions/"; //$NON-NLS-1$
+  private static final String BASE_PATH = "src/it/resources/"; //$NON-NLS-1$
 
-  private static final String ALT_SOLUTION_PATH = "test-res/pentaho-solutions"; //$NON-NLS-1$
+  private static final String SOLUTION_PATH = BASE_PATH + "pentaho-solutions/"; //$NON-NLS-1$
+
+  private static final String ALT_SOLUTION_PATH = BASE_PATH + "pentaho-solutions"; //$NON-NLS-1$
 
   private static final String PENTAHO_XML_PATH = "/system/pentaho.xml"; //$NON-NLS-1$
 
@@ -100,17 +102,17 @@ public class MetadataServiceIT {
   public static void initPlatform() throws Exception {
 
     if ( microPlatform == null || !microPlatform.isInitialized() ) {
-      microPlatform = new MicroPlatform( "test-res/pentaho-solutions" );
+      microPlatform = new MicroPlatform( ALT_SOLUTION_PATH );
       microPlatform.define( ISolutionEngine.class, SolutionEngine.class );
 
       repository = new FileSystemBackedUnifiedRepository();
-      ( (FileSystemBackedUnifiedRepository) repository ).setRootDir( new File( "test-res/pentaho-solutions" ) );
+      ( (FileSystemBackedUnifiedRepository) repository ).setRootDir( new File( ALT_SOLUTION_PATH ) );
 
       microPlatform.defineInstance( IUnifiedRepository.class, repository );
 
       IMetadataDomainRepository domainRepository = new InMemoryMetadataDomainRepository();
       domainRepository.storeDomain(
-          getDomain( "steel-wheels", "test-res/pentaho-solutions/steel-wheels/metadata.xmi" ), true );
+          getDomain( "steel-wheels", SOLUTION_PATH + "steel-wheels/metadata.xmi" ), true );
 
       microPlatform.defineInstance( IMetadataDomainRepository.class, domainRepository );
       microPlatform.define( IPluginManager.class, DefaultPluginManager.class,
@@ -131,7 +133,7 @@ public class MetadataServiceIT {
 
     // JNDI
     System.setProperty( "java.naming.factory.initial", "org.osjava.sj.SimpleContextFactory" ); //$NON-NLS-1$ //$NON-NLS-2$
-    System.setProperty( "org.osjava.sj.root", "test-res/pentaho-solutions/system/simple-jndi" ); //$NON-NLS-1$ //$NON-NLS-2$
+    System.setProperty( "org.osjava.sj.root", SOLUTION_PATH + "system/simple-jndi" ); //$NON-NLS-1$ //$NON-NLS-2$
     System.setProperty( "org.osjava.sj.delimiter", "/" ); //$NON-NLS-1$ //$NON-NLS-2$
   }
 

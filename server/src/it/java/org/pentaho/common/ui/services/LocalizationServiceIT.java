@@ -42,7 +42,7 @@ public class LocalizationServiceIT extends TestCase {
   public static class TstPluginResourceLoader extends PluginResourceLoader {
     @Override
     protected PluginClassLoader getOverrideClassloader() {
-      return new PluginClassLoader( new File( "test-res/pentaho-solutions/system/common-ui" ), getClass()
+      return new PluginClassLoader( new File( "src/it/resources/pentaho-solutions/system/common-ui" ), getClass()
           .getClassLoader() );
     }
   };

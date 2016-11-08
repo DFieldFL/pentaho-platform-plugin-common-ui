@@ -26,7 +26,7 @@ import org.pentaho.test.platform.engine.core.BaseTest;
 @SuppressWarnings( { "all" } )
 public class UserSettingServiceIT extends BaseTest {
 
-  private static final String SOLUTION_PATH = "test-res/pentaho-solutions";
+  private static final String SOLUTION_PATH = "src/it/resources/pentaho-solutions";
 
   public String getSolutionPath() {
     return SOLUTION_PATH;

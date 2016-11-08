@@ -57,7 +57,7 @@ public class TreeBrowserMapperTest {
   @Test
   public void testConvert() throws Exception {
 
-    File testFile = new File( "test-res/data/repositoryFileTree.xml" );
+    File testFile = new File( "src/it/resources/data/repositoryFileTree.xml" );
     String repositoryFileTreeXml = FileUtils.readFileToString( testFile );
 
     RepositoryFileTreeDto repositoryFileTreeDto = unmarshal( repositoryFileTreeXml );

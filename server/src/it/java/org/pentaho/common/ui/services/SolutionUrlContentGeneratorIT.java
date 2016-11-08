@@ -61,11 +61,11 @@ public class SolutionUrlContentGeneratorIT {
   public static void init() {
 
     if ( microPlatform == null || !microPlatform.isInitialized() ) {
-      microPlatform = new MicroPlatform( "test-res/pentaho-solutions" );
+      microPlatform = new MicroPlatform( "src/it/resources/pentaho-solutions" );
       microPlatform.define( ISolutionEngine.class, SolutionEngine.class, IPentahoDefinableObjectFactory.Scope.GLOBAL );
 
       repository = new FileSystemBackedUnifiedRepository();
-      ( (FileSystemBackedUnifiedRepository) repository ).setRootDir( new File( "test-res/pentaho-solutions" ) );
+      ( (FileSystemBackedUnifiedRepository) repository ).setRootDir( new File( "src/it/resources/pentaho-solutions" ) );
 
       microPlatform.defineInstance( IUnifiedRepository.class, repository );
 

@@ -27,7 +27,7 @@ public class TreeBrowserModelUtilsTest {
   @Before
   public void setUp() throws Exception {
     treeBrowserMapper = new TreeBrowserMapper( Locale.getDefault() );
-    testFile = new File( "test-res/data/repositoryFileTree.xml" );
+    testFile = new File( "src/it/resources/data/repositoryFileTree.xml" );
   }
 
   @Test
