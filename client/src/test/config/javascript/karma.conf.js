@@ -1,6 +1,6 @@
 module.exports = function (config) {
   config.set({
-    basePath: "../",
+    basePath: "${basedir}",
 
     frameworks: ["jasmine", "requirejs"],
 
@@ -13,7 +13,7 @@ module.exports = function (config) {
 
     files: [
       // FIRST file
-      "config/context-begin.js",
+      "${project.build.directory}/context-begin.js",
 
       // SOURCE files
       {pattern: "build-res/module-scripts/**/*.+(js|html|xml)", included: false},
@@ -29,7 +29,7 @@ module.exports = function (config) {
       {pattern: "test-js/unit/**", included: false},
 
       // LAST file
-      "config/context-end.js"
+      "${project.build.directory}/context-end.js"
     ],
 
     // Too many files cause karma launcher/file-serving errors.

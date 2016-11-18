@@ -1,6 +1,6 @@
 module.exports = function (config) {
   config.set({
-    basePath: "../",
+    basePath: '${basedir}',
 
     frameworks: ["jasmine", "requirejs"],
 
@@ -15,23 +15,23 @@ module.exports = function (config) {
 
     files: [
       // FIRST file
-      "config/context-begin.js",
+      "${project.build.directory}/context-begin.js",
 
       // SOURCE files
       {pattern: "build-res/module-scripts/**/*.+(js|html|xml)", included: false},
-      {pattern: "package-res/resources/web/**/*.+(js|html|xml|properties)", included: false},
+      {pattern: "${basedir}/src/main/javascript/**/*.+(js|html|xml|properties)", included: false},
       {pattern: "dev-res/dojo/dojo-release-1.9.2-src/**/*.+(js|html)", included: false},
 
       // AMD configuration
-      "build-res/requireCfg-raw.js",
-      "test-js/unit/require-config.js",
-      "test-js/unit/require-test.js",
+      "src/main/javascript/requireCfg-raw.js",
+      "src/test/javascript/require-config.js",
+      "src/test/javascript/require-test.js",
 
       // TEST files (must be after require-config.js, or it is not included)
-      {pattern: "test-js/unit/**", included: false},
+      {pattern: "src/test/javascript/**", included: false},
 
       // LAST file
-      "config/context-end.js"
+      "context-end.js"
     ],
 
     // Too many files cause karma launcher/file-serving errors.
@@ -39,7 +39,7 @@ module.exports = function (config) {
     exclude: [
       "dev-res/dojo/dojo-release-1.9.2-src/**/tests/**",
       "build-res/module-scripts/common-ui/**",
-      "package-res/resources/web/test/**"
+      "src/main/javascript/test/**"
     ],
 
     // CI mode
@@ -57,12 +57,12 @@ module.exports = function (config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
-      "package-res/resources/web/plugin-handler/**/*.js": ["coverage"],
-      "package-res/resources/web/angular-directives/**/*.js": ["coverage"],
-      "package-res/resources/web/pentaho/**/*.js": ["coverage"],
-      "package-res/resources/web/vizapi/**/*.js": ["coverage"],
-      "package-res/resources/web/prompting/**/*.js": ["coverage"],
-      "package-res/resources/web/util/**/*.js": ["coverage"],
+      "src/main/javascript/plugin-handler/**/*.js": ["coverage"],
+      "src/main/javascript/angular-directives/**/*.js": ["coverage"],
+      "src/main/javascript/pentaho/**/*.js": ["coverage"],
+      "src/main/javascript/vizapi/**/*.js": ["coverage"],
+      "src/main/javascript/prompting/**/*.js": ["coverage"],
+      "src/main/javascript/util/**/*.js": ["coverage"],
       "**/*.html": []
     },
 

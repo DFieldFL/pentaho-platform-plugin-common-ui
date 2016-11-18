@@ -14,10 +14,45 @@
   <description>Javascript client for Common UI</description>
   <url>http://www.pentaho.com</url>
   <properties>
+    <merge-maven-plugin.version>0.0.3</merge-maven-plugin.version>
+    <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
+    <build.javascriptTestConfigDirectory>${project.build.directory}</build.javascriptTestConfigDirectory>
+    <requirejs.config.files.pattern>**/*-require-js-cfg.js</requirejs.config.files.pattern>
   </properties>
+  <dependencies>
+    <!-- <dependency>
+      <groupId>org.zcore.maven</groupId>
+      <artifactId>merge-maven-plugin</artifactId>
+      <version>${merge-maven-plugin.version}</version>
+    </dependency> -->
+  </dependencies>
   <build>
     <finalName>common-ui-${project.version}-js</finalName>
-    <sourceDirectory>${basedir}/src/main/javascript</sourceDirectory>
+    <resources>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/javascript</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <targetPath>${basedir}/target</targetPath>
+        <filtering>true</filtering>
+        <directory>${basedir}/src/test/config/javascript</directory>
+        <includes>
+          <include>**/*.js</include>
+        </includes>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
@@ -31,69 +66,43 @@
           </filesets>
         </configuration>
       </plugin>
+<!--       <plugin>
+        <groupId>org.zcore.maven</groupId>
+        <artifactId>merge-maven-plugin</artifactId>
+        <version>${merge-maven-plugin.version}</version>
+        <configuration>
+          <mergers>
+            <merger>
+              <target>${project.build.directory}/requireCfg-raw.js</target>
+              <sources>
+                <source>src/main/config/javascript/requireCfg-prefix.js</source>
+                <source>src/main/config/javascript/context.js</source>
+              </sources>
+            </merger>
+          </mergers>
+        </configuration>
+      </plugin> -->
+      <!-- <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>org.mozilla.javascript.tools.shell.Main</mainClass>
+          <classpath/>
+          <arguments>
+            <argument>build-res/pentaho-js-build/profileBuilder.js</argument>
+          </arguments>
+        </configuration>
+      </plugin> -->
     </plugins>
   </build>
   <profiles>
-    <profile>
-      <id>javascript-build-custom</id>
-      <activation>
-        <file>
-          <exists>${basedir}/src/main/javascript/${requirejs.build.file}</exists>
-        </file>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>copy-javascript-sources-for-build</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/src-javascript/analyzer</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>${basedir}/src/main/javascript/scripts</directory>
-                      <excludes>
-                        <exclude>${javascript.exclusion.pattern}</exclude>
-                      </excludes>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>copy-dependency-js</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/src-javascript</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>${project.build.directory}/dependency/pentaho-js-build/module-scripts</directory>
-                      <includes>
-                        <include>require.js</include>
-                      </includes>
-                    </resource>
-                    <resource>
-                      <directory>${project.build.directory}/dependency</directory>
-                      <includes>
-                        <include>ccc/**</include>
-                        <include>cdf/**</include>
-                        <include>common-ui/**</include>
-                      </includes>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>
