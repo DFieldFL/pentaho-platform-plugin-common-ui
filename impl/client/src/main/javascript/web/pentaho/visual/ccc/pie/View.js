@@ -100,9 +100,6 @@ define([
             }
           }
         };
-      } else {
-        var meaMAInfo = this._getMappingAttrInfosByRole("measures")[0];
-        this.options.valuesMask = meaMAInfo.isPercent ? "{value}" : "{value} ({value.percent})";
       }
     },
 
